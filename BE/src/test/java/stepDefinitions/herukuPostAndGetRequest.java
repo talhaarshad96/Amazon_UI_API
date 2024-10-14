@@ -32,20 +32,29 @@ public class herukuPostAndGetRequest {
         response = given().log().all().header("Content-type", "application/json")
 
                 .when()
-                .get(configPropFileData.getServer()+configPropFileData.getEndpoint())
+                .get(configPropFileData.getServer()+configPropFileData.getEndpoint()+"/"+bookingid)
                 .then()
                 .extract().response();
 
-        System.out.println(response.getBody().asString());
+        System.out.println("Get response \n");
+        response.prettyPrint();
     }
 
     @When("^User perform Post Operation$")
     public void user_perform_Post_Operation() {
         JSONObject jsonObject = new JSONObject();
+        JSONObject bookingDates = new JSONObject();
 
         //inserting key value pair to jsonObject of our api body
         jsonObject.put("firstname", configPropFileData.getFirstName());
         jsonObject.put("lastname", configPropFileData.getLastName());
+        jsonObject.put("totalprice", configPropFileData.getTotalPrice());
+        jsonObject.put("depositpaid", configPropFileData.getDepositPaid());
+        bookingDates.put("checkin", configPropFileData.getBookingDateCheckIn());
+        bookingDates.put("checkout", configPropFileData.getBookingDateCheckOut());
+        // Add bookingdates to the main jsonObject
+        jsonObject.put("bookingdates", bookingDates);
+        jsonObject.put("additionalneeds", configPropFileData.getAdditionalNeeds());
 
         response = given().log().all().header("Content-type", "application/json")
                 .and()

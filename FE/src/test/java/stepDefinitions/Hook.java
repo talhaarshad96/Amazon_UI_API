@@ -14,6 +14,7 @@ public class Hook extends Common {
     public void setUp() {
         ConfigPropFileData.getInstance();
         initializeDriver();
+        navigateToURL();
     }
 
     @After

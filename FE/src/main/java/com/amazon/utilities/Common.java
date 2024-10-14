@@ -47,6 +47,10 @@ public class Common {
         return driver;
     }
 
+    public void navigateToURL(){
+        driver.get(ConfigPropFileData.getInstance().getUrl());
+    }
+
     public static void waitForVisibleWebElement(WebDriver driver, By element, long timeout) {
         WebDriverWait wait = new WebDriverWait(driver, timeout);
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
@@ -98,6 +102,19 @@ public class Common {
         Actions actions = new Actions(driver);
         actions.moveToElement(element);
         actions.perform();
+    }
+
+    public void scrollToElement(WebDriver driver, By locator) {
+        try {
+            WebElement element = driver.findElement(locator);
+            Actions actions = new Actions(driver);
+            actions.moveToElement(element);
+            actions.perform();
+        }
+        catch (Exception e) {
+            JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+            javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(locator));
+        }
     }
 
     public static void scrollToBottom(WebDriver driver, By locator) {
