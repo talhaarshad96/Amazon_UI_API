@@ -6,10 +6,13 @@ import com.amazon.utilities.ScenarioContext;
 import com.amazon.utilities.Constants;
 import cucumber.api.java.en.Then;
 import org.junit.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TotalSummarySteps {
 
     TotalSummaryPage totalSummaryPage = new TotalSummaryPage(Common.getDriver());
+    private static Logger logger = LoggerFactory.getLogger(TotalSummaryPage.class);
 
     private ScenarioContext scenarioContext;
 
@@ -20,6 +23,9 @@ public class TotalSummarySteps {
     //region And
     @Then("^User verifies the prices of products (\\d+) and (\\d+) on Search page, product page, Total Summary page$")
     public void userVerifiesThePricesOfProductsOnSearchPageProductPageTotalSummaryPage(String item1, String item2) {
+        logger.info("Asserting the summary page, product and total summary prices");
+
+        //Action
         String priceSearchPage1 = (String) scenarioContext.getContext(Constants.SEARCH_PAGE_ITEM_PREFIX+item1);
         String priceSearchPage2 = (String) scenarioContext.getContext(Constants.SEARCH_PAGE_ITEM_PREFIX+item2);
 

@@ -14,15 +14,12 @@ public class TotalSummaryPage extends Common {
 
     private By get_PriceOnTotalSummaryPage = By.xpath("//span[@class='ewc-subtotal-amount']/h2");
 
-    public String getPriceOnProductPage(){
+    public String getPriceOnProductPage() {
         driver.manage().timeouts().implicitlyWait(Constants.MEDIUM_TIMEOUT, TimeUnit.SECONDS);
         String priceWhole_OnSearchResultPage;
-
         waitForPresenceWebElement(driver, get_PriceOnTotalSummaryPage, Constants.MEDIUM_TIMEOUT);
         priceWhole_OnSearchResultPage = getElement(driver, get_PriceOnTotalSummaryPage).getText();
-        String removeSubString = priceWhole_OnSearchResultPage.replace("$", "");
-        System.out.println("Price on TotalSummary Page of item:  " +removeSubString);
 
-        return removeSubString;
+        return priceWhole_OnSearchResultPage.replace("$", "");
     }
 }

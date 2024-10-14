@@ -23,7 +23,6 @@ public class SearchResultSteps {
         this.scenarioContext = scenarioContext;
     }
 
-
     //region Given
     @Given("User navigates to amazon url")
     public void userNavigatesToAmazonUrl() {
@@ -33,19 +32,22 @@ public class SearchResultSteps {
 
     //region And
     @And("^User perform captcha and close the location alert$")
-    public void userPerformCaptchaAndCloseTheLocationAlert() throws InterruptedException {
+    public void userPerformCaptchaAndCloseTheLocationAlert() {
+        logger.info("Closing the Dismiss alert");
         searchResultPage.closeAlert();
     }
 
     @And("^User select item (\\d+)$")
-    public void userSelectItem(int itemNumber) throws InterruptedException {
+    public void userSelectItem(int itemNumber) {
+        logger.info("Selecting ItemNumber : "+ itemNumber);
         searchResultPage.selectTheItem(itemNumber);
     }
     //endregion
 
     //region When
     @When("^search for product \"([^\"]*)\"$")
-    public void searchForProduct(String productName){
+    public void searchForProduct(String productName) {
+        logger.info("Searching the product Toys");
         searchResultPage.clickSearchBoxAndEnterItemNameAndClickSearch(productName);
     }
     //endregion
@@ -53,17 +55,19 @@ public class SearchResultSteps {
     //region Then
     @Then("^User verifies text \"([^\"]*)\" on search result page$")
     public void userVerifiesTextOnLandingPage(String expectedText) {
+        logger.info("Verifying the text on Search result page");
         //Act
         String actualText = searchResultPage.getTextOnLandingPage();
 
         //Assert
-        Assert.assertEquals(expectedText,actualText);
+        Assert.assertEquals(expectedText, actualText);
     }
 
     @And("^User gets price of the product on search page for item (\\d+)$")
-    public void userGetsPriceOfTheProductOnSearchPage(int itemNumber) throws InterruptedException {
+    public void userGetsPriceOfTheProductOnSearchPage(int itemNumber) {
+        logger.info("Storing the price on search page via Scenario Context");
         String itemPrice = searchResultPage.getPriceOnSearchPage(itemNumber);
-        scenarioContext.setContext(Constants.SEARCH_PAGE_ITEM_PREFIX +itemNumber,itemPrice);
+        scenarioContext.setContext(Constants.SEARCH_PAGE_ITEM_PREFIX + itemNumber, itemPrice);
     }
     //endregion
 }

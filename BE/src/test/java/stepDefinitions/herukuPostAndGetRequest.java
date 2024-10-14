@@ -1,6 +1,7 @@
 package stepDefinitions;
 
 import config.BEConfigPropFileData;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
@@ -20,6 +21,11 @@ public class herukuPostAndGetRequest {
     public static String bookingid;
     public static String postedFName;
     public static String postedLName;
+    public static String totalPrice;
+    public static String depositPaid;
+    public static String bookingDatesCheckIn;
+    public static String bookingDatesCheckOut;
+    public static String additionalneeds;
 
     @Given("^Get API is provided$")
     public void getAPIIsProvided() {
@@ -66,15 +72,30 @@ public class herukuPostAndGetRequest {
 
         //Extracting data
         bookingid = response.jsonPath().getString("bookingid");
-        postedFName = response.jsonPath().getString("firstname");
-        postedLName = response.jsonPath().getString("lastname");
+        postedFName = response.jsonPath().getString("booking.firstname");
+        postedLName = response.jsonPath().getString("booking.lastname");
+        totalPrice = response.jsonPath().getString("booking.totalprice");
+        depositPaid = response.jsonPath().getString("booking.depositpaid");
+        bookingDatesCheckIn = response.jsonPath().getString("booking.bookingdates.checkin");
+        bookingDatesCheckOut = response.jsonPath().getString("booking.bookingdates.checkout");
+        additionalneeds = response.jsonPath().getString("booking.additionalneeds");
 
-        //showing out the postedID
-        System.out.println("in Post Id is: "+bookingid);
+        System.out.println("Deposit " +depositPaid);
     }
 
     @Then("^Status code should be (\\d+)$")
     public void status_code_should_be(int status){
         Assert.assertEquals(status, response.getStatusCode());
+    }
+
+    @And("^Verify the get call contains same payload data as posted$")
+    public void verifyTheGetCallContainsSamePayloadDataAsPosted() {
+        Assert.assertEquals(postedFName, configPropFileData.getFirstName());
+        Assert.assertEquals(postedLName, configPropFileData.getLastName());
+        Assert.assertEquals(totalPrice, configPropFileData.getTotalPrice());
+        Assert.assertTrue(Boolean.parseBoolean(depositPaid));
+        Assert.assertEquals(bookingDatesCheckIn, configPropFileData.getBookingDateCheckIn());
+        Assert.assertEquals(bookingDatesCheckOut, configPropFileData.getBookingDateCheckOut());
+        Assert.assertEquals(additionalneeds, configPropFileData.getAdditionalNeeds());
     }
 }

@@ -37,8 +37,7 @@ public class Common {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
             driver.manage().window().maximize();
-        }
-         else if (browser.equals(Constants.FIREFOX)) {
+        } else if (browser.equals(Constants.FIREFOX)) {
             WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();
             driver.manage().window().maximize();
@@ -47,7 +46,7 @@ public class Common {
         return driver;
     }
 
-    public void navigateToURL(){
+    public void navigateToURL() {
         driver.get(ConfigPropFileData.getInstance().getUrl());
     }
 
@@ -110,8 +109,7 @@ public class Common {
             Actions actions = new Actions(driver);
             actions.moveToElement(element);
             actions.perform();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
             javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(locator));
         }

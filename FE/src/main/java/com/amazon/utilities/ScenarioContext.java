@@ -13,8 +13,4 @@ public class ScenarioContext {
     public Object getContext(String key) {
         return context.get(key);
     }
-
-    public boolean contains(String key) {
-        return context.containsKey(key);
-    }
 }

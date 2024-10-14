@@ -30,18 +30,11 @@ public class BEConfigPropFileData {
         this.endpoint = readPropertiesFile().getProperty("endpoint");
         this.lastName = readPropertiesFile().getProperty("lastname");
         this.totalPrice = readPropertiesFile().getProperty("totalprice");
-        this.depositPaid = readPropertiesFile().getProperty("depositpaid").isEmpty();
+        this.depositPaid = Boolean.parseBoolean(readPropertiesFile().getProperty("depositpaid"));
         this.bookingDateCheckIn = readPropertiesFile().getProperty("bookingdatesCheckin");
         this.bookingDateCheckOut = readPropertiesFile().getProperty("bookingdatesCheckOut");
         this.additionalNeeds = readPropertiesFile().getProperty("additionalneeds");
     }
-
-//    public static BEConfigPropFileData getInstance() {
-//        if (null == configdata) {
-//            configdata = new BEConfigPropFileData();
-//        }
-//        return configdata;
-//    }
 
     public String getFirstName() {
         return firstName;

@@ -18,7 +18,6 @@ public class ConfigPropFileData {
     private String url;
 
     private ConfigPropFileData() {
-
         this.url = readPropertiesFile().getProperty("url");
         this.browser = readPropertiesFile().getProperty("browser");
     }
@@ -37,7 +36,6 @@ public class ConfigPropFileData {
     public String getBrowser() {
         return browser;
     }
-
 
     public Properties readPropertiesFile() {
         FileInputStream fileInputStream;

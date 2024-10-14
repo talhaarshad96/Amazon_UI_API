@@ -13,7 +13,7 @@ Feature: Test scenario for amazon
     #now click AddToCart
       And User clicks on Add to Cart
     Then User verifies text "Added to Cart" on product page for cart
-#      And User clicks on search button
+    #And User clicks on search button
     When search for product "Toys"
       And User gets price of the product on search page for item 2
       And User select item 2
@@ -21,7 +21,6 @@ Feature: Test scenario for amazon
       And User gets price of the product on product page for item 2
       And User clicks on Add to Cart
     Then User verifies text "Added to Cart" on product page for cart
-
     #now Total Summary
     Then User verifies the prices of products 1 and 2 on Search page, product page, Total Summary page
 
